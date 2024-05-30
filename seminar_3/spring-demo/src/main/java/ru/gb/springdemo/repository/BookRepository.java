@@ -32,4 +32,14 @@ public class BookRepository {
       .orElse(null);
   }
 
+  public void deleteBook(Book book) {
+    books.remove(book);
+  }
+
+  public Book createBook(String name) {
+    Book book = new Book(name);
+    books.add(book);
+    return book;
+  }
+
 }
