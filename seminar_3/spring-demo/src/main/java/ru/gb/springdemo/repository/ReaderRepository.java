@@ -2,6 +2,7 @@ package ru.gb.springdemo.repository;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
+import ru.gb.springdemo.model.Book;
 import ru.gb.springdemo.model.Reader;
 
 import java.util.ArrayList;
@@ -29,5 +30,16 @@ public class ReaderRepository {
       .findFirst()
       .orElse(null);
   }
+
+  public void deleteReader(Reader reader) {readers.remove(reader);
+  }
+
+  public Reader create(String name) {
+    Reader reader = new Reader(name);
+    readers.add(reader);
+    return reader;
+  }
+
+
 
 }

@@ -33,4 +33,12 @@ public class IssuerService {
     return issue;
   }
 
+  public Issue issue(long id) {
+    final Issue issue = issueRepository.get(id);
+    if (issue == null) {
+      throw new NoSuchElementException("Не найдена выдача книги с id=\"" + id + "\"");
+    }
+    return issue;
+  }
+
 }
