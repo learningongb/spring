@@ -42,4 +42,8 @@ public class BookRepository {
     return book;
   }
 
+  public List<Book> getBooks() {
+    return List.copyOf(books);
+  }
+
 }

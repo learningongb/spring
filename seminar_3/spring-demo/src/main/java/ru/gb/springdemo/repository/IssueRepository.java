@@ -53,4 +53,8 @@ public class IssueRepository {
     issue.setReturnedAt(LocalDateTime.now());
   }
 
+  public List<Issue> getIssues() {
+    return List.copyOf(issues);
+  }
+
 }

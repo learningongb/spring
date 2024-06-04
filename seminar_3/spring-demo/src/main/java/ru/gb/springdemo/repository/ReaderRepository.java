@@ -41,5 +41,7 @@ public class ReaderRepository {
   }
 
 
-
+  public List<Reader> retReaders() {
+    return List.copyOf(readers);
+  }
 }
