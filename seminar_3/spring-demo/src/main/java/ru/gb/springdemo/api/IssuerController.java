@@ -1,5 +1,9 @@
 package ru.gb.springdemo.api;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +19,7 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestController
 @RequestMapping("/issue")
+@Tag(name = "Выдача книги")
 public class IssuerController {
 
   @Autowired
@@ -23,6 +28,7 @@ public class IssuerController {
   private IssueRepository repository;
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+  @Operation(summary = "set return date to issue", description = "Устанавливает дату возврата в выдачу книги")
   public ResponseEntity<Issue> returnBook(@PathVariable long id) {
     // найти в репозитории выдачу и проставить ей returned_at
     final Issue issue;
@@ -36,6 +42,11 @@ public class IssuerController {
   }
 
   @PostMapping
+  @Operation(summary = "create new issue", description = "Создает выдачу книги")
+  @ApiResponses(
+          {@ApiResponse(responseCode = "200"),
+          @ApiResponse(responseCode = "403")}
+  )
   public ResponseEntity<Issue> issueBook(@RequestBody IssueRequest request) {
     log.info("Получен запрос на выдачу: readerId = {}, bookId = {}", request.getReaderId(), request.getBookId());
 
@@ -53,6 +64,7 @@ public class IssuerController {
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  @Operation(summary = "get one issue", description = "Ищет выдачу книги по идентификатору")
   public ResponseEntity<Issue> getIssue(@PathVariable long id) {
     final Issue issue;
     try {
