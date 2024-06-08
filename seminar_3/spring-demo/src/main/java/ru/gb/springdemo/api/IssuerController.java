@@ -44,9 +44,10 @@ public class IssuerController {
       issue = service.issue(request);
     } catch (NoSuchElementException e) {
       return ResponseEntity.notFound().build();
-    } catch (RuntimeException e) {
-      return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
+
+    if (issue == null)
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
     return ResponseEntity.status(HttpStatus.OK).body(issue);
   }

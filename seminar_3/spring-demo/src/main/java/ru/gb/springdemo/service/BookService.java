@@ -1,10 +1,19 @@
 package ru.gb.springdemo.service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import ru.gb.springdemo.api.BookRequest;
+import ru.gb.springdemo.api.IssueResponse;
 import ru.gb.springdemo.model.Book;
+import ru.gb.springdemo.model.Issue;
 import ru.gb.springdemo.repository.BookRepository;
+import ru.gb.springdemo.repository.ReaderRepository;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -39,4 +48,5 @@ public class BookService {
     public Book createBook(String name) {
         return bookRepository.createBook(name);
     }
+
 }

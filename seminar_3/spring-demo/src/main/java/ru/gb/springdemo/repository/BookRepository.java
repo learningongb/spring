@@ -1,49 +1,39 @@
 package ru.gb.springdemo.repository;
 
-import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.gb.springdemo.model.Book;
+import ru.gb.springdemo.repository.interfaces.IBookRepository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Repository
 public class BookRepository {
 
-  private final List<Book> books;
+  @Autowired
+  private final IBookRepository repository;
 
-  public BookRepository() {
-    this.books = new ArrayList<>();
-  }
-
-  @PostConstruct
-  public void generateData() {
-    books.addAll(List.of(
-      new Book("война и мир"),
-      new Book("метрвые души"),
-      new Book("чистый код")
-    ));
+  public BookRepository(IBookRepository repository) {
+      this.repository = repository;
   }
 
   public Book getBookById(long id) {
-    return books.stream().filter(it -> Objects.equals(it.getId(), id))
-      .findFirst()
-      .orElse(null);
+    return repository.findById(id).stream().findFirst().orElse(null);
   }
 
   public void deleteBook(Book book) {
-    books.remove(book);
+    repository.delete(book);
   }
 
   public Book createBook(String name) {
-    Book book = new Book(name);
-    books.add(book);
+    Book book = new Book();
+    book.setName(name);
+    book = repository.save(book);
     return book;
   }
 
   public List<Book> getBooks() {
-    return List.copyOf(books);
+    return repository.findAll().stream().toList();
   }
 
 }

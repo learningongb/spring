@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gb.springdemo.model.Reader;
 import ru.gb.springdemo.repository.BookRepository;
 import ru.gb.springdemo.repository.IssueRepository;
-import ru.gb.springdemo.repository.IssueResponseRepository;
 import ru.gb.springdemo.repository.ReaderRepository;
+import ru.gb.springdemo.service.IssueResponseService;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,7 +21,7 @@ public class UIController {
 
     final private BookRepository bookRepository;
     final private ReaderRepository readerRepository;
-    final private IssueResponseRepository issueResponseRepository;
+    final private IssueResponseService issueResponse;
     final private IssueRepository issueRepository;
 
     @GetMapping("/books")
@@ -32,13 +32,13 @@ public class UIController {
 
     @GetMapping("/readers")
     public String getReaders(Model model) {
-        model.addAttribute("readers", readerRepository.retReaders());
+        model.addAttribute("readers", readerRepository.getReaders());
         return "readers";
     }
 
     @GetMapping("/issues")
     public String gerIssues(Model model) {
-        model.addAttribute("issues", issueResponseRepository.getList(issueRepository.getIssues()));
+        model.addAttribute("issues", issueResponse.getList());
         return "issues";
     }
 
@@ -48,7 +48,7 @@ public class UIController {
         if (reader == null)
             return "404";
         model.addAttribute("reader", reader);
-        model.addAttribute("issues", issueResponseRepository.getList(issueRepository.readersIssues(id)));
+        model.addAttribute("issues", issueResponse.getList(id));
         return "onereader";
     }
 

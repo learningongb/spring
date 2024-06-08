@@ -32,7 +32,7 @@ public class BookController {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(book);
+        return ResponseEntity.ok(book);
     }
 
     @DeleteMapping("/{id}")
