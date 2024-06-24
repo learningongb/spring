@@ -18,9 +18,9 @@ public class IssueRepository {
       this.repository = repository;
   }
 
-  public void save(Issue issue) {
+  public Issue save(Issue issue) {
 
-    repository.save(issue);
+    return repository.save(issue);
 
   }
 
