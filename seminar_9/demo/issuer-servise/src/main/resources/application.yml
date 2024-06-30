@@ -1,0 +1,11 @@
+server:
+  port: 8581
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+spring:
+  application:
+    name: issue-service
+timer:
+  logLevel: warn
